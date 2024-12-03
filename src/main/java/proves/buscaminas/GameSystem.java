@@ -9,7 +9,7 @@ public class GameSystem {
         el Intermedio suele estar en un tablero de 16x16 con 40 minas y
         el Experto suele estar en un tablero de 30x16 con 99 minas;
         */
-        Cells cells = new Cells(25, 25, 40);
+        MinesweeperBoard cells = new MinesweeperBoard(25, 25, 40);
         System.out.println(cells);
     }
 }

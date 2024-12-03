@@ -4,7 +4,7 @@ package proves.buscaminas;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class CellsUtils {
+public class MinesweeperBoardUtils {
     
     public static int[][] assignBombs(int x, int y, int bombs) {      
         int[][] cells = new int[x][y];

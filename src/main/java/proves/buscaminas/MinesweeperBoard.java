@@ -1,6 +1,6 @@
 package proves.buscaminas;
 
-public class Cells {
+public class MinesweeperBoard {
 
     int[][] cells;
     int bombs;
@@ -17,13 +17,13 @@ public class Cells {
         this.bombs++;
     }
 
-    public Cells(int x, int y, int _bombs) {
+    public MinesweeperBoard(int x, int y, int _bombs) {
         this.bombs = _bombs;
-        this.cells = CellsUtils.assignBombs(x, y, bombs);
-        this.cells = CellsUtils.assignNumbers(this.cells);
+        this.cells = MinesweeperBoardUtils.assignBombs(x, y, bombs);
+        this.cells = MinesweeperBoardUtils.assignNumbers(this.cells);
     }
 
-    public Cells(int[][] _cells) {
+    public MinesweeperBoard(int[][] _cells) {
         this.cells = _cells;
         this.bombs = 0;
         for (int[] row : this.cells) {
@@ -35,7 +35,7 @@ public class Cells {
         }
     }
 
-    public Cells(String cellStr) {
+    public MinesweeperBoard(String cellStr) {
         int cellOpenings = 0, indexCellOpening = 0;
         while (indexCellOpening != -1) {
             indexCellOpening = cellStr.indexOf("[", indexCellOpening);
@@ -111,6 +111,6 @@ public class Cells {
             }
             y++;
         }
-        CellsUtils.assignNumbers(this.cells);
+        MinesweeperBoardUtils.assignNumbers(this.cells);
     }
 }

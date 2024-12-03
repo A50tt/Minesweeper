@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class CellsTest {
+public class MinesweeperBoardTest {
 
     // 3 x 3
     private static String string3x3x0;
@@ -22,7 +22,7 @@ public class CellsTest {
     private static String string9x9x15;
     private static int[][] array9x9x15 = new int[9][9];
 
-    public CellsTest() {
+    public MinesweeperBoardTest() {
     }
 
     @BeforeAll
@@ -71,7 +71,7 @@ public class CellsTest {
         
         // 3 x 3 x 5 bombs
         array3x3x5[1][1] = -1;
-        Cells cell3x3x5 = new Cells(array3x3x5);
+        MinesweeperBoard cell3x3x5 = new MinesweeperBoard(array3x3x5);
         cell3x3x5.assignNumbers();
         array3x3x5 = cell3x3x5.getCells();
         
@@ -87,7 +87,7 @@ public class CellsTest {
         for (int[] bombPos : array9x9x15Bombs) {
             array9x9x15[bombPos[0]][bombPos[1]] = -1;
         }
-        Cells cell9x9x15 = new Cells(array9x9x15);
+        MinesweeperBoard cell9x9x15 = new MinesweeperBoard(array9x9x15);
         cell9x9x15.assignNumbers();
         array9x9x15 = cell9x9x15.getCells();
     }
@@ -95,43 +95,43 @@ public class CellsTest {
     @Test
     @Order(1)
     public void assertEqualsString3x3x0() {
-        assertEquals(string3x3x0, new Cells(3, 3, 0).toString());
+        assertEquals(string3x3x0, new MinesweeperBoard(3, 3, 0).toString());
     }
 
     @Test
     @Order(2)
     public void assertEqualsArray3x3x0() {
-        assertArrayEquals(array3x3x0, new Cells(3, 3, 0).getCells());
+        assertArrayEquals(array3x3x0, new MinesweeperBoard(3, 3, 0).getCells());
     }
 
     @Test
     @Order(3)
     public void assertEqualsString3x3x5() {
-        assertEquals(string3x3x5, new Cells(string3x3x5).toString());
+        assertEquals(string3x3x5, new MinesweeperBoard(string3x3x5).toString());
     }
     
     @Test
     @Order(4)
     public void assertEqualsArray3x3x5() {
-        assertEquals(array3x3x5, new Cells(array3x3x5).getCells());
+        assertEquals(array3x3x5, new MinesweeperBoard(array3x3x5).getCells());
     }
     
     @Test
     @Order(5)
     public void assertEqualsString9x9x0() {
-        assertEquals(string9x9x0, new Cells(9, 9, 0).toString());
+        assertEquals(string9x9x0, new MinesweeperBoard(9, 9, 0).toString());
     }
 
     @Test
     @Order(6)
     public void assertEqualsArray9x9x0() {
-        assertArrayEquals(array9x9x0, new Cells(9, 9, 0).getCells());
+        assertArrayEquals(array9x9x0, new MinesweeperBoard(9, 9, 0).getCells());
     }
     
     @Test
     @Order(7)
     public void assertEqualsString9x9x15() {
-        Cells cell = new Cells(string9x9x15);
+        MinesweeperBoard cell = new MinesweeperBoard(string9x9x15);
         cell.assignNumbers();
         assertEquals(string9x9x15, cell.toString());
     }
@@ -139,7 +139,7 @@ public class CellsTest {
     @Test
     @Order(8)
     public void assertEqualsArray9x9x15() {
-        Cells cell = new Cells(array9x9x15);
+        MinesweeperBoard cell = new MinesweeperBoard(array9x9x15);
         cell.assignNumbers();
         assertEquals(array9x9x15, cell.getCells());
     }
