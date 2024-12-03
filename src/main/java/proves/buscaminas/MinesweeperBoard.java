@@ -2,8 +2,8 @@ package proves.buscaminas;
 
 public class MinesweeperBoard {
 
-    int[][] cells;
-    int bombs;
+    private int[][] cells;
+    private int bombs;
 
     public int[][] getCells() {
         return cells;
@@ -54,7 +54,7 @@ public class MinesweeperBoard {
             }
         }
 
-        cells = new int[cellOpenings / newLines][newLines];
+        cells = new int[newLines][cellOpenings / newLines];
         this.bombs = 0;
         int x = 0, y = 0;
         boolean bombFound = false;
@@ -80,7 +80,7 @@ public class MinesweeperBoard {
                         break;
                     }
                 default:
-                    cells[x][y] = Integer.valueOf(Character.toString(ch));
+                    cells[x][y] = Integer.parseInt(Character.toString(ch));
                     y++;
                     break;
             }
@@ -90,9 +90,21 @@ public class MinesweeperBoard {
     @Override
     public String toString() {
         String str = "";
+        int x = 0, y;
+        for (int i = 0; i <= cells.length; i++) {
+            if (i > 0) {
+                System.out.print(i);
+            }
+            System.out.print("\t ");
+        }
+        System.out.println();
         for (int[] row : cells) {
+            x++;
+            y = 0;
+            str += (char) (x + 64) + "\t";
             for (int cell : row) {
                 str += "[" + cell + "]\t";
+                y++;
             }
             str += "\n";
         }

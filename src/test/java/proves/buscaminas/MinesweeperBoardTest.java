@@ -21,6 +21,10 @@ public class MinesweeperBoardTest {
     private static int[][] array9x9x0 = new int[9][9];
     private static String string9x9x15;
     private static int[][] array9x9x15 = new int[9][9];
+    
+    // 3 x 6
+    private static String string6x3x3;
+    private static int[][] array6x3x6 = new int[3][6];
 
     public MinesweeperBoardTest() {
     }
@@ -39,6 +43,10 @@ public class MinesweeperBoardTest {
         string3x3x5 = "[1]\t[1]\t[1]\t\n"
                 + "[1]\t[-1]\t[1]\t\n"
                 + "[1]\t[1]\t[1]\t\n";
+
+        string6x3x3 = "[1]\t[1]\t[1]\t[0]\t[1]\t[-1]\t\n"
+                + "[1]\t[-1]\t[1]\t[1]\t[2]\t[2]\t\n"
+                + "[1]\t[1]\t[1]\t[1]\t[-1]\t[1]\t\n";
 
         string9x9x0 = "[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t\n"
                 + "[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t\n"
@@ -90,6 +98,27 @@ public class MinesweeperBoardTest {
         MinesweeperBoard cell9x9x15 = new MinesweeperBoard(array9x9x15);
         cell9x9x15.assignNumbers();
         array9x9x15 = cell9x9x15.getCells();
+        
+        // 6 x 3 x 3 bombs
+        array6x3x6[1][1] = -1;
+        array6x3x6[0][5] = -1;
+        array6x3x6[2][4] = -1;
+        MinesweeperBoard cell3x6x3 = new MinesweeperBoard(array6x3x6);
+        cell3x6x3.assignNumbers();
+        array6x3x6 = cell3x6x3.getCells();
+        
+        // 9 x 9 x 0 bombs
+        for (int[] row : array9x9x0) {
+            for (int cell : row) {
+                cell = 0;
+            }
+        }
+    }
+    
+    @Test
+    @Order(0)
+    public void assertNumberAssignments() {
+        assertEquals(string3x3x0, new MinesweeperBoard(3, 3, 0).toString());
     }
 
     @Test
@@ -142,5 +171,19 @@ public class MinesweeperBoardTest {
         MinesweeperBoard cell = new MinesweeperBoard(array9x9x15);
         cell.assignNumbers();
         assertEquals(array9x9x15, cell.getCells());
+    }
+    
+    @Test
+    @Order(9)
+    public void assertEqualsString6x3x3() {
+        MinesweeperBoard cell = new MinesweeperBoard(string6x3x3);
+        cell.assignNumbers();
+        assertEquals(string6x3x3, cell.toString());
+    }
+
+    @Test
+    @Order(10)
+    public void assertEqualsArray6x3x3() {
+        assertArrayEquals(array6x3x6, new MinesweeperBoard(array6x3x6).getCells());
     }
 }
