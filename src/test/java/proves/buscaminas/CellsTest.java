@@ -3,16 +3,24 @@ package proves.buscaminas;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CellsTest {
 
-    // 3 x 3 x 0 bombs
-    private static int[][] array3x3x0 = new int[3][3];
+    // 3 x 3
     private static String string3x3x0;
+    private static int[][] array3x3x0 = new int[3][3];
+    private static String string3x3x5;
+    private static int[][] array3x3x5 = new int[3][3];
     
-    // 9 x 9 x 0 bombs
-    private static int[][] array9x9x0 = new int[9][9];
+    // 9 x 9
     private static String string9x9x0;
+    private static int[][] array9x9x0 = new int[9][9];
+    private static String string9x9x15;
+    private static int[][] array9x9x15 = new int[9][9];
 
     public CellsTest() {
     }
@@ -20,13 +28,17 @@ public class CellsTest {
     @BeforeAll
     public static void setUpClass() {
         setUpStrings();
-        setUpArrays();        
+        setUpArrays();
     }
     
     public static void setUpStrings() {
         string3x3x0 = "[0]\t[0]\t[0]\t\n"
                 + "[0]\t[0]\t[0]\t\n"
                 + "[0]\t[0]\t[0]\t\n";
+        
+        string3x3x5 = "[1]\t[1]\t[1]\t\n"
+                + "[1]\t[-1]\t[1]\t\n"
+                + "[1]\t[1]\t[1]\t\n";
 
         string9x9x0 = "[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t\n"
                 + "[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t\n"
@@ -37,39 +49,98 @@ public class CellsTest {
                 + "[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t\n"
                 + "[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t\n"
                 + "[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t[0]\t\n";
+
+        string9x9x15 = "[1]\t[1]\t[2]\t[1]\t[1]\t[1]\t[1]\t[1]\t[0]\t\n"
+                    + "[1]\t[-1]\t[2]\t[-1]\t[1]\t[1]\t[-1]\t[1]\t[0]\t\n"
+                    + "[1]\t[2]\t[3]\t[3]\t[2]\t[2]\t[2]\t[2]\t[1]\t\n"
+                    + "[1]\t[2]\t[-1]\t[2]\t[-1]\t[1]\t[1]\t[-1]\t[1]\t\n"
+                    + "[1]\t[-1]\t[3]\t[3]\t[2]\t[2]\t[3]\t[2]\t[2]\t\n"
+                    + "[1]\t[2]\t[-1]\t[1]\t[1]\t[-1]\t[2]\t[-1]\t[1]\t\n"
+                    + "[0]\t[1]\t[2]\t[2]\t[3]\t[2]\t[4]\t[2]\t[2]\t\n"
+                    + "[1]\t[1]\t[2]\t[-1]\t[2]\t[-1]\t[2]\t[-1]\t[2]\t\n"
+                    + "[1]\t[-1]\t[2]\t[1]\t[2]\t[1]\t[2]\t[2]\t[-1]\t\n";
     }
     
     public static void setUpArrays() {
+        // 3 x 3 x 0 bombs
         for (int[] row : array3x3x0) {
             for (int cell : row) {
                 cell = 0;
             }
         }
-     
+        
+        // 3 x 3 x 5 bombs
+        array3x3x5[1][1] = -1;
+        Cells cell3x3x5 = new Cells(array3x3x5);
+        cell3x3x5.assignNumbers();
+        array3x3x5 = cell3x3x5.getCells();
+        
+        // 9 x 9 x 0 bombs
         for (int[] row : array9x9x0) {
             for (int cell : row) {
                 cell = 0;
             }
         }
+        
+        // 9 x 9 x 15 bombs
+        int[][] array9x9x15Bombs = { {1,1}, {1,3}, {1,6}, {3,2}, {3,7}, {4,1}, {5,2}, {5,5}, {5,7}, {7,3}, {7,5}, {7,7}, {8,1}, {8,8} };
+        for (int[] bombPos : array9x9x15Bombs) {
+            array9x9x15[bombPos[0]][bombPos[1]] = -1;
+        }
+        Cells cell9x9x15 = new Cells(array9x9x15);
+        cell9x9x15.assignNumbers();
+        array9x9x15 = cell9x9x15.getCells();
     }
 
     @Test
-    public void string3x3x0() {
+    @Order(1)
+    public void assertEqualsString3x3x0() {
         assertEquals(string3x3x0, new Cells(3, 3, 0).toString());
     }
 
     @Test
-    public void object3x3x0() {
+    @Order(2)
+    public void assertEqualsArray3x3x0() {
         assertArrayEquals(array3x3x0, new Cells(3, 3, 0).getCells());
     }
 
     @Test
-    public void string9x9x0() {
+    @Order(3)
+    public void assertEqualsString3x3x5() {
+        assertEquals(string3x3x5, new Cells(string3x3x5).toString());
+    }
+    
+    @Test
+    @Order(4)
+    public void assertEqualsArray3x3x5() {
+        assertEquals(array3x3x5, new Cells(array3x3x5).getCells());
+    }
+    
+    @Test
+    @Order(5)
+    public void assertEqualsString9x9x0() {
         assertEquals(string9x9x0, new Cells(9, 9, 0).toString());
     }
 
     @Test
-    public void object9x9x0() {
+    @Order(6)
+    public void assertEqualsArray9x9x0() {
         assertArrayEquals(array9x9x0, new Cells(9, 9, 0).getCells());
+    }
+    
+    @Test
+    @Order(7)
+    public void assertEqualsString9x9x15() {
+        Cells cell = new Cells(string9x9x15);
+        cell.assignNumbers();
+        assertEquals(string9x9x15, cell.toString());
+    }
+    
+    @Test
+    @Order(8)
+    public void assertEqualsArray9x9x15() {
+        Cells cell = new Cells(array9x9x15);
+        cell.assignNumbers();
+        assertEquals(array9x9x15, cell.getCells());
     }
 }
