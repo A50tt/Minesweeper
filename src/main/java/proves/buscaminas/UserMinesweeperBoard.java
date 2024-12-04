@@ -27,7 +27,7 @@ public class UserMinesweeperBoard {
     public String toString() {
         String str = "";
         int x = 0, y;
-        for (int i = 0; i <= cells.length; i++) {
+        for (int i = 0; i <= cells[0].length; i++) {
             if (i > 0) {
                 System.out.print(i);
             }

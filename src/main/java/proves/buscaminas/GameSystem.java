@@ -54,6 +54,7 @@ public class GameSystem {
                 default:
                     System.out.println("The input is not a valid option, please try again.");
             }
+            System.out.println("Enter the input 'help' for more information about the commands.");
         }
     }
 
@@ -78,32 +79,39 @@ public class GameSystem {
                 case ("x"):
                 case ("reveal"):
                     coord = UserMinesweeperBoardUtils.coordinateConverter(userBoard, actionCommands[1]);
-                    if (userBoard.revealCell(coord) == -1) {
-                        System.out.println("BOOOOOOOOOOOOOOOOOOM!!");
-                        System.out.println(userBoard.toString());
-                        System.out.println("YOU LOST!!");
-                        System.out.println(userBoard.getMinesweeperBoard().toString());
-                        inGame = false;
+                    if (coord != null) {
+                        if (userBoard.revealCell(coord) == -1) {
+                            System.out.println("BOOOOOOOOOOOOOOOOOOM!!");
+                            System.out.println(userBoard.toString());
+                            System.out.println("YOU LOST!!");
+                            System.out.println(userBoard.getMinesweeperBoard().toString());
+                            inGame = false;
+                        }
+                        actionRead = true;
                     }
-                    actionRead = true;
+                    
                     break;
                 //Flag
                 case ("f"):
                 case ("flag"):
                     coord = UserMinesweeperBoardUtils.coordinateConverter(userBoard, actionCommands[1]);
-                    userBoard.flagCell(coord);
-                    actionRead = true;
+                    if (coord != null) {
+                        userBoard.flagCell(coord);
+                        actionRead = true;
+                    }
                     break;
                 //Cry for help commands
                 case ("help"):
                     System.out.println("Commands:\n"
-                            + "x/reveal coordinates (LettersNumbers) - to reveal a cell.\n"
-                            + "f/flag coordinates (LettersNumbers) - to flag a cell.\n\n"
+                            + "The format should be: action LN (L = 'Letter of cell', N = 'Number of cell').\n"
+                            + "Actions:\n"
+                            + "x/reveal - to reveal a cell.\n"
+                            + "f/flag - to flag/unflag a cell.\n\n"
                             + "Examples:\n"
                             + "x A1 - reveal cell A1.\n"
                             + "reveal A1 - reveal cell A1.\n"
-                            + "f B11 - flag cell C11.\n"
-                            + "flag B11 - flag cell C11.");
+                            + "f B11 - flag/unflag cell C11.\n"
+                            + "flag B11 - flag/unflag cell C11.");
                     break;
                 default:
                     System.out.println("Command not recognised, please try again.");

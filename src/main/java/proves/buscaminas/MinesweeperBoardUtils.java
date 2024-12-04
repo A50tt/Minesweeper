@@ -29,22 +29,6 @@ public class MinesweeperBoardUtils {
                 } else {
                     column = (y - 1);
                 }
-                
-                /*
-                row = (assignBombToCell / x) - 1;
-                if (assignBombToCell % x == 0 || assignBombToCell < x) {
-                    if (assignBombToCell != (x * y)) {
-                        row += 1;
-                    }
-                }
-                
-                column = (assignBombToCell % x) - 1;
-                if (assignBombToCell % x == 0 || assignBombToCell < x) {
-                    column += 1;
-                }
-                */
-                
-                System.out.println(" / " + assignBombToCell);
                 cells[row][column] = -1;
                 cellsWithBombsAssigned.add(assignBombToCell);
                 bombsWithoutAssignment--;
