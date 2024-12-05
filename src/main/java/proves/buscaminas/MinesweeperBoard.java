@@ -9,6 +9,10 @@ public class MinesweeperBoard {
         return cells;
     }
 
+    public int getBombs() {
+        return bombs;
+    }
+
     public void setBombs(int _bombs) {
         this.bombs = _bombs;
     }

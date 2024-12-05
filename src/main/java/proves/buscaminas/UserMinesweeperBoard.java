@@ -22,7 +22,11 @@ public class UserMinesweeperBoard {
     public String[][] getCells() {
         return this.cells;
     }
-
+    
+    public boolean[][] getIsRevealedCell() {
+        return isRevealedCell;
+    }
+    
     @Override
     public String toString() {
         String str = "";
@@ -62,20 +66,29 @@ public class UserMinesweeperBoard {
     public int revealCell(int[] coord) {
         int x = coord[0];
         int y = coord[1];
-        int cellValue = this.msBoard.getCells()[x][y];
-        this.cells[x][y] = String.valueOf(cellValue);
-        this.isRevealedCell[x][y] = true;
-        revealZeroValueCells(coord);
-        return cellValue;
+        try {
+            int cellValue = this.msBoard.getCells()[x][y];
+            this.cells[x][y] = String.valueOf(cellValue);
+            this.isRevealedCell[x][y] = true;
+            revealZeroValueCells(coord);
+            return cellValue;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("The cell provided does not exist.");
+            return -2;
+        }
     }
     
     public void flagCell(int[] coord) {
         int x = coord[0];
         int y = coord[1];
-        if (this.cells[x][y] == SYMBOL_FOR_BLANK_CELLS) {
-            this.cells[x][y] = SYMBOL_FOR_FLAGGING_CELLS;
-        } else if (this.cells[x][y] == SYMBOL_FOR_FLAGGING_CELLS) {
-            this.cells[x][y] = SYMBOL_FOR_BLANK_CELLS;
+        try {
+            if (this.cells[x][y] == SYMBOL_FOR_BLANK_CELLS) {
+                this.cells[x][y] = SYMBOL_FOR_FLAGGING_CELLS;
+            } else if (this.cells[x][y] == SYMBOL_FOR_FLAGGING_CELLS) {
+                this.cells[x][y] = SYMBOL_FOR_BLANK_CELLS;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("The cell provided does not exist.");
         }
     }
     
