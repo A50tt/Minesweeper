@@ -1,9 +1,4 @@
-package logic;
-
-/**
-* This class creates a board: assigns the bombs and safe cells with its bomb
-* counter.W
-*/
+package proves.buscaminas;
 
 public class MinesweeperBoard {
 

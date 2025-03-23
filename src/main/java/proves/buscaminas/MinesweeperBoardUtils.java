@@ -1,4 +1,4 @@
-package logic;
+package proves.buscaminas;
 
 import java.util.ArrayList;
 import java.util.Random;
