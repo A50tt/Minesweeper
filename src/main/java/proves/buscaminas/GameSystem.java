@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class GameSystem {
 
-    private UserMinesweeperBoard userBoard;
+    private Board userBoard;
     private static Scanner scan;
     private boolean inGame;
 
@@ -32,22 +32,22 @@ public class GameSystem {
             String boardDimsOption = scan.nextLine();
             switch (boardDimsOption.toLowerCase()) {
                 case "a":
-                    userBoard = new UserMinesweeperBoard(8, 8, 10);
+                    userBoard = new Board(8, 8, 10);
                     optionPicked = true;
                     System.out.println("8 x 8 (10 bombs) board selected.");
                     break;
                 case "b":
-                    userBoard = new UserMinesweeperBoard(9, 9, 10);
+                    userBoard = new Board(9, 9, 10);
                     optionPicked = true;
                     System.out.println("9 x 9 (10 bombs) board selected.");
                     break;
                 case "c":
-                    userBoard = new UserMinesweeperBoard(16, 16, 40);
+                    userBoard = new Board(16, 16, 40);
                     optionPicked = true;
                     System.out.println("16 x 16 (40 bombs) board selected.");
                     break;
                 case "d":
-                    userBoard = new UserMinesweeperBoard(30, 16, 99);
+                    userBoard = new Board(30, 16, 99);
                     optionPicked = true;
                     System.out.println("30 x 16 (99 bombs) board selected.");
                     break;
@@ -78,7 +78,7 @@ public class GameSystem {
                 //Reveal
                 case ("x"):
                 case ("reveal"):
-                    coord = UserMinesweeperBoardUtils.coordinateConverter(userBoard, actionCommands[1]);
+                    coord = BoardUtils.coordinateConverter(userBoard, actionCommands[1]);
                     if (coord != null) {
                         if (userBoard.revealCell(coord).equals("-1")) {
                             System.out.println("BOOOOOOOOOOOOOOOOOOM!!");
@@ -94,7 +94,7 @@ public class GameSystem {
                 //Flag
                 case ("f"):
                 case ("flag"):
-                    coord = UserMinesweeperBoardUtils.coordinateConverter(userBoard, actionCommands[1]);
+                    coord = BoardUtils.coordinateConverter(userBoard, actionCommands[1]);
                     if (coord != null) {
                         userBoard.flagCell(coord);
                         actionRead = true;

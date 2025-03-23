@@ -1,24 +1,24 @@
 package proves.buscaminas;
 
-public class UserMinesweeperBoard {
+public class Board {
 
     private String[][] cells;
     private boolean[][] isRevealedCell;
-    private UserMinesweeperBoard revealedBoard;
+    private Board revealedBoard;
     private int bombs;
     private String SYMBOL_FOR_BLANK_CELLS = " ";
     private String SYMBOL_FOR_FLAGGING_CELLS = "X";
 
-    public UserMinesweeperBoard(int x, int y, int bombs) {
+    public Board(int x, int y, int bombs) {
         this.cells = new String[y][x];
-        int[][] mineBoard = UserMinesweeperBoardUtils.assignBombs(x, y, bombs);
-        int[][] completeBoard = UserMinesweeperBoardUtils.assignNumbers(mineBoard);
-        revealedBoard = new UserMinesweeperBoard(completeBoard);
+        int[][] mineBoard = BoardUtils.assignBombs(x, y, bombs);
+        int[][] completeBoard = BoardUtils.assignNumbers(mineBoard);
+        revealedBoard = new Board(completeBoard);
         this.isRevealedCell = new boolean[y][x];
         createBlankBoard();
     }
     
-    public UserMinesweeperBoard(int[][] _cells) {
+    public Board(int[][] _cells) {
         this.cells = new String[_cells.length][_cells[0].length];
         for (int i = 0; i < _cells.length; i++) {
             for (int y = 0; y < _cells[i].length; y++) {
@@ -35,7 +35,7 @@ public class UserMinesweeperBoard {
         }
     }
 
-    public UserMinesweeperBoard getRevealedBoard() {
+    public Board getRevealedBoard() {
         return this.revealedBoard;
     }
 
