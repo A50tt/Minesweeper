@@ -1,4 +1,4 @@
-package proves.buscaminas;
+package logic;
 
 public class UserMinesweeperBoardUtils {
 

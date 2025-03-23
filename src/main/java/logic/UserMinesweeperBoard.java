@@ -1,4 +1,11 @@
-package proves.buscaminas;
+package logic;
+
+/**
+* This class manages the board that the user can see.
+* The real board with the bombs and safe cells with its bomb counter are in the
+* class MinesweeperBoard.
+* @see MinesweeperBoard
+*/
 
 public class UserMinesweeperBoard {
 
