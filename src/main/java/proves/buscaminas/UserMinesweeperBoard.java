@@ -4,19 +4,39 @@ public class UserMinesweeperBoard {
 
     private String[][] cells;
     private boolean[][] isRevealedCell;
-    private MinesweeperBoard msBoard;
+    private UserMinesweeperBoard revealedBoard;
+    private int bombs;
     private String SYMBOL_FOR_BLANK_CELLS = " ";
     private String SYMBOL_FOR_FLAGGING_CELLS = "X";
 
     public UserMinesweeperBoard(int x, int y, int bombs) {
-        msBoard = new MinesweeperBoard(x, y, bombs);
         this.cells = new String[y][x];
+        int[][] mineBoard = UserMinesweeperBoardUtils.assignBombs(x, y, bombs);
+        int[][] completeBoard = UserMinesweeperBoardUtils.assignNumbers(mineBoard);
+        revealedBoard = new UserMinesweeperBoard(completeBoard);
         this.isRevealedCell = new boolean[y][x];
         createBlankBoard();
     }
+    
+    public UserMinesweeperBoard(int[][] _cells) {
+        this.cells = new String[_cells.length][_cells[0].length];
+        for (int i = 0; i < _cells.length; i++) {
+            for (int y = 0; y < _cells[i].length; y++) {
+                this.cells[i][y] = String.valueOf(_cells[i][y]);
+            }
+        }
+        this.bombs = 0;
+        for (String[] row : this.cells) {
+            for (String cell : row) {
+                if (cell.equals("-1")) {
+                    this.bombs++;
+                }
+            }
+        }
+    }
 
-    public MinesweeperBoard getMinesweeperBoard() {
-        return this.msBoard;
+    public UserMinesweeperBoard getRevealedBoard() {
+        return this.revealedBoard;
     }
 
     public String[][] getCells() {
@@ -63,18 +83,18 @@ public class UserMinesweeperBoard {
         }
     }
 
-    public int revealCell(int[] coord) {
+    public String revealCell(int[] coord) {
         int x = coord[0];
         int y = coord[1];
         try {
-            int cellValue = this.msBoard.getCells()[x][y];
-            this.cells[x][y] = String.valueOf(cellValue);
+            String cellValue = this.revealedBoard.getCells()[x][y];
+            this.cells[x][y] = cellValue;
             this.isRevealedCell[x][y] = true;
             revealZeroValueCells(coord);
             return cellValue;
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("The cell provided does not exist.");
-            return -2;
+            return "-2";
         }
     }
     
@@ -99,7 +119,7 @@ public class UserMinesweeperBoard {
         // <--  ^
         //      |
         if ((x - 1 != -1) && (y - 1 != -1)) {
-            if (msBoard.getCells()[x][y] == 0) {
+            if (revealedBoard.getCells()[x][y].equals("0")) {
                 int[] coordNew = {x-1, y-1};
                 if (!isRevealedCell[x-1][y-1]) {
                     revealCell(coordNew);
@@ -111,7 +131,7 @@ public class UserMinesweeperBoard {
         // ^
         // |
         if (y - 1 != -1) {
-            if (msBoard.getCells()[x][y] == 0) {
+            if (revealedBoard.getCells()[x][y].equals("0")) {
                 int[] coordNew = {x, y-1};
                 if (!isRevealedCell[x][y-1]) {
                     revealCell(coordNew);
@@ -123,7 +143,7 @@ public class UserMinesweeperBoard {
         // ^
         // | -->
         if ((x + 1 != cells.length) && (y - 1 != -1)) {
-            if (msBoard.getCells()[x][y] == 0) {
+            if (revealedBoard.getCells()[x][y].equals("0")) {
                 int[] coordNew = {x+1, y-1};
                 if (!isRevealedCell[x+1][y-1]) {
                     revealCell(coordNew);
@@ -134,7 +154,7 @@ public class UserMinesweeperBoard {
 
         // <--
         if (x - 1 != -1) {
-            if (msBoard.getCells()[x][y] == 0) {
+            if (revealedBoard.getCells()[x][y].equals("0")) {
                 int[] coordNew = {x-1, y};
                 if (!isRevealedCell[x-1][y]) {
                     revealCell(coordNew);
@@ -145,7 +165,7 @@ public class UserMinesweeperBoard {
 
         // -->
         if (x + 1 != cells.length) {
-            if (msBoard.getCells()[x][y] == 0) {
+            if (revealedBoard.getCells()[x][y].equals("0")) {
                 int[] coordNew = {x+1, y};
                 if (!isRevealedCell[x+1][y]) {
                     revealCell(coordNew);
@@ -157,7 +177,7 @@ public class UserMinesweeperBoard {
         // |
         // V <--
         if ((x - 1 != -1) && (y + 1 != cells[x].length)) {
-            if (msBoard.getCells()[x][y] == 0) {
+            if (revealedBoard.getCells()[x][y].equals("0")) {
                 int[] coordNew = {x-1, y+1};
                 if (!isRevealedCell[x-1][y+1]) {
                     revealCell(coordNew);
@@ -169,7 +189,7 @@ public class UserMinesweeperBoard {
         // |
         // V
         if (y + 1 != cells[x].length) {
-            if (msBoard.getCells()[x][y] == 0) {
+            if (revealedBoard.getCells()[x][y].equals("0")) {
                 int[] coordNew = {x, y+1};
                 if (!isRevealedCell[x][y+1]) {
                     revealCell(coordNew);
@@ -181,7 +201,7 @@ public class UserMinesweeperBoard {
         // |
         // V -->
         if ((x + 1 != cells.length) && (y + 1 != cells[x].length)) {
-            if (msBoard.getCells()[x][y] == 0) {
+            if (revealedBoard.getCells()[x][y].equals("0")) {
                 int[] coordNew = {x+1, y+1};
                 if (!isRevealedCell[x+1][y+1]) {
                     revealCell(coordNew);

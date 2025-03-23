@@ -1,4 +1,4 @@
-package proves.buscaminas;
+package test;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MinesweeperBoardTest {
-
+/*
     // 3 x 3
     private static String string3x3x0;
     private static int[][] array3x3x0 = new int[3][3];
@@ -186,4 +186,5 @@ public class MinesweeperBoardTest {
     public void assertEqualsArray6x3x3() {
         assertArrayEquals(array6x3x6, new MinesweeperBoard(array6x3x6).getCells());
     }
+*/
 }

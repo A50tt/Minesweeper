@@ -63,7 +63,7 @@ public class GameSystem {
         inGame = true;
         while (inGame) {
             System.out.println(userBoard.toString());
-            //System.out.println(userBoard.getMinesweeperBoard().toString());
+            //System.out.println(userBoard.getRevealedBoard().toString());
             System.out.println("What will you do?");
             String action = readAction();
         }
@@ -80,11 +80,11 @@ public class GameSystem {
                 case ("reveal"):
                     coord = UserMinesweeperBoardUtils.coordinateConverter(userBoard, actionCommands[1]);
                     if (coord != null) {
-                        if (userBoard.revealCell(coord) == -1) {
+                        if (userBoard.revealCell(coord).equals("-1")) {
                             System.out.println("BOOOOOOOOOOOOOOOOOOM!!");
                             System.out.println(userBoard.toString());
                             System.out.println("YOU LOST!!");
-                            System.out.println(userBoard.getMinesweeperBoard().toString());
+                            System.out.println(userBoard.getRevealedBoard().toString());
                             inGame = false;
                         }
                         actionRead = true;
