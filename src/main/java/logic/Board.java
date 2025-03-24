@@ -1,16 +1,18 @@
-package proves.buscaminas;
+package logic;
 
 public class Board {
 
     private String[][] cells;
     private boolean[][] isRevealedCell;
     private Board revealedBoard;
+    private int safeCells;
     private int bombs;
     private String SYMBOL_FOR_BLANK_CELLS = " ";
     private String SYMBOL_FOR_FLAGGING_CELLS = "X";
 
     public Board(int x, int y, int bombs) {
         this.cells = new String[y][x];
+        this.safeCells = (x * y) - bombs;
         int[][] mineBoard = BoardUtils.assignBombs(x, y, bombs);
         int[][] completeBoard = BoardUtils.assignNumbers(mineBoard);
         revealedBoard = new Board(completeBoard);
@@ -90,6 +92,7 @@ public class Board {
             String cellValue = this.revealedBoard.getCells()[x][y];
             this.cells[x][y] = cellValue;
             this.isRevealedCell[x][y] = true;
+            this.safeCells--;
             revealZeroValueCells(coord);
             return cellValue;
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -110,6 +113,13 @@ public class Board {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("The cell provided does not exist.");
         }
+    }
+    
+    public boolean checkIfGameIsWon() {
+        if (this.safeCells == 0) {
+            return true;
+        }
+        return false;
     }
     
     public void revealZeroValueCells(int[] coord) {
